@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>mobCodeServlet</servlet-name>
+        <servlet-class>org.onida.audio.mobCodeServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>validateLogin</servlet-name>
+        <servlet-class>org.onida.audio.validateLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createNewDataHelperServlet</servlet-name>
+        <servlet-class>org.onida.audio.createNewDataHelperServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mobCodeServlet</servlet-name>
+        <url-pattern>/mobCodeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>validateLogin</servlet-name>
+        <url-pattern>/validateLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createNewDataHelperServlet</servlet-name>
+        <url-pattern>/createNewDataHelperServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <context-param>
+        <param-name>parameter1</param-name>
+        <param-value>ValueOfParameter1</param-value>
+    </context-param>
+</web-app>
