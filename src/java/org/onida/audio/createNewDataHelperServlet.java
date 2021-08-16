@@ -34,11 +34,13 @@ public class createNewDataHelperServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String companyStr = request.getParameter("company_name");
+        String companyCodeStr = request.getParameter("company_code");
         String personStr = request.getParameter("company_person");
         String emailStr = request.getParameter("company_email");
         String phoneStr = request.getParameter("company_phone");
         String addrStr = request.getParameter("company_address");
         String productStr = request.getParameter("product_name");
+        String productCodeStr = request.getParameter("product_code");
         String descriptionStr = request.getParameter("product_description");
         String modelStr = request.getParameter("model_number");
         String stage = request.getParameter("stage");
@@ -48,22 +50,24 @@ public class createNewDataHelperServlet extends HttpServlet {
         String prodStrDrop = request.getParameter("dropDown2");
         
         ArrayList<String> sqlData = new ArrayList<String>();
-        sqlData.add(request.getParameter("company_name"));
-        sqlData.add(request.getParameter("company_person"));
-        sqlData.add(request.getParameter("company_email"));
-        sqlData.add(request.getParameter("company_phone"));
-        sqlData.add(request.getParameter("company_address"));
-        sqlData.add(request.getParameter("product_name"));
-        sqlData.add(request.getParameter("product_description"));
-        sqlData.add(request.getParameter("model_number"));
-        sqlData.add(request.getParameter("stage"));
-        sqlData.add(request.getParameter("compStr"));
-        sqlData.add(request.getParameter("prodStr"));
-        sqlData.add(request.getParameter("dropDown1"));
-        sqlData.add(request.getParameter("dropDown2"));
+        sqlData.add(request.getParameter("company_name"));//0
+        sqlData.add(request.getParameter("company_code"));//1
+        sqlData.add(request.getParameter("company_person"));//2
+        sqlData.add(request.getParameter("company_email"));//3
+        sqlData.add(request.getParameter("company_phone"));//4
+        sqlData.add(request.getParameter("company_address"));//5
+        sqlData.add(request.getParameter("product_name"));//6
+        sqlData.add(request.getParameter("product_code"));//7
+        sqlData.add(request.getParameter("product_description"));//8
+        sqlData.add(request.getParameter("model_name"));//9
+        sqlData.add(request.getParameter("stage"));//10
+        sqlData.add(request.getParameter("compStr"));//11
+        sqlData.add(request.getParameter("prodStr"));//12
+        sqlData.add(request.getParameter("dropDown1"));//13
+        sqlData.add(request.getParameter("dropDown2"));//14
         
         DatabaseHelper db = new DatabaseHelper();
-        String retMsg = db.setCompany(sqlData);
+        String retMsg = db.setData(sqlData);
         RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/create.jsp");
         request.setAttribute("createMsg", retMsg);
         RequetsDispatcherObj.forward(request, response);

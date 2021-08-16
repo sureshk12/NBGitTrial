@@ -52,8 +52,6 @@ public class Service {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);			
             }
-
-
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("HTTP GET Request Failed with Error code : " + conn.getResponseCode());
             }

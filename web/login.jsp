@@ -12,7 +12,7 @@
             <form action = "validateLogin.jsp" method = "POST">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="userEmail" >
+                    <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" name="userEmail" >
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
@@ -35,5 +35,9 @@
         </div>
     </div>
 </main>
+            
+<script>
+    document.getElementById("userEmail").innerText = "enter your email";
+</script>
 
 <%@ include file = "footer.jsp" %>
