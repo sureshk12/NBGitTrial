@@ -57,7 +57,7 @@ public class DatabaseHelper {
     public ArrayList<String> getProduct(String compStr) {
         ArrayList<String> retData = new ArrayList<>();       
         try {
-            ResultSet resultset = null;
+            ResultSet resultset;
             if(compStr.equals("ALL")) {
                 resultset = stmt.executeQuery("SELECT * FROM product");
             } else {
@@ -94,7 +94,7 @@ public class DatabaseHelper {
         //String compName, String compPers, String compEmail, String compPhone, String compAddr
         String retMsg = "";
         try {        
-            PreparedStatement st = null;
+            PreparedStatement st;
             switch(sqlData.get(10).toString()) {
                 case "1":
                     //Company Creation
@@ -164,9 +164,7 @@ public class DatabaseHelper {
                         st.setString(3, prodName);
                         st.setString(4, modelUniqueId);
                         st.executeUpdate();
-                        st.close();
-
-                       
+                        st.close();                       
                         //Form the Database name
                         String companyCode;
                         String productCode;
@@ -178,7 +176,12 @@ public class DatabaseHelper {
                             if(resultset.next()) {
                                 productCode = resultset.getString("prod_code");
                                 dynamoDbName = companyCode + productCode;
-                                retMsg = "Created <b>" + modelName + " Model with Database name " +dynamoDbName + "</b> Sucessfully";
+                                String retValue = CreateDbTable.createTable(dynamoDbName);
+                                if(retValue.equals("OK")) {
+                                    retMsg = "Created <b>" + modelName + " Model with Database name " +dynamoDbName + "</b> Sucessfully";
+                                } else {
+                                    retMsg = "Error Could not create table";
+                                }
                             } else {
                                 retMsg = "ERROR IN CREATION OF <b>" + modelName + "<b> product code";
                             }
