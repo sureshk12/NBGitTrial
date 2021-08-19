@@ -23,13 +23,14 @@
                 <%
                     String result="Invalid Operation";
                     JSONObject js = new JSONObject();
-                    js.put("createNewTable", "YES");
+                    js.put("createNewTable", "NO");
                     js.put("dbName", "ONTV");
                     js.put("createFirstRow", "NO");
                     js.put("company", "Onida");
                     js.put("product", "Television");
-                    js.put("createNewThings", "NO");
-                    js.put("numOfDevices", 2);
+                    js.put("createNewThings", "YES");
+                    js.put("thingCode", "ONTV1");
+                    js.put("numOfDevices", 2); 
                     //js.put("", "");
                     try {
                         Service srTable = new Service();
@@ -41,18 +42,18 @@
                         e.printStackTrace();
                     }
                     out.print(result + "<br><br><br>");
-                    Thread.sleep(10000);
-                    try {
-                        Service srFirstLine = new Service();
-                        Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");    
-                        js.put("createNewTable", "NO");
-                        js.put("createFirstRow", "YES");
-                        Service.setJsonInputString(js.toString());
-                        result = srFirstLine.getOnidaIotDataString();
-                        out.print(result + "<br>");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    Thread.sleep(10000);
+//                    try {
+//                        Service srFirstLine = new Service();
+//                        Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");    
+//                        js.put("createNewTable", "NO");
+//                        js.put("createFirstRow", "YES");
+//                        Service.setJsonInputString(js.toString());
+//                        result = srFirstLine.getOnidaIotDataString();
+//                        out.print(result + "<br>");
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                 %>
             </p>
         </div>

@@ -90,6 +90,31 @@ public class DatabaseHelper {
         return retData;   
     }
     
+    public String getThingsCode(String compStr, String prodStr, String modelStr) {
+        String thingCode = "";
+        //Get comp_code
+        ResultSet resultset;
+        try {
+            resultset = stmt.executeQuery("select * from company WHERE comp_name='"+compStr+"'");
+            while(resultset.next()) {
+                thingCode += resultset.getString("comp_code");
+            }
+            resultset = stmt.executeQuery("select * from product WHERE prod_name='"+prodStr+"'");
+            while(resultset.next()) {
+                thingCode += resultset.getString("prod_code");
+            }
+            resultset = stmt.executeQuery("select * from model WHERE model_name='"+modelStr+"' AND model_comp_name='"+compStr+"' AND model_prod_name='"+prodStr+"'");
+            while(resultset.next()) {
+                thingCode += resultset.getString("model_uniqueid");
+            }
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(" System Error");
+        }
+        return thingCode;
+    }
+    
     public String setData(ArrayList sqlData) {
         //String compName, String compPers, String compEmail, String compPhone, String compAddr
         String retMsg = "";
@@ -176,7 +201,7 @@ public class DatabaseHelper {
                             if(resultset.next()) {
                                 productCode = resultset.getString("prod_code");
                                 dynamoDbName = companyCode + productCode;
-                                String retValue = CreateDbTable.createTable(dynamoDbName);
+                                String retValue = CreateDbTable.createTable(dynamoDbName, compName, prodName);
                                 if(retValue.equals("OK")) {
                                     retMsg = "Created <b>" + modelName + " Model with Database name " +dynamoDbName + "</b> Sucessfully";
                                 } else {

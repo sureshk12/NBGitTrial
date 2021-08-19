@@ -14,16 +14,16 @@ import org.json.JSONObject;
  */
 public class CreateDbTable {
     
-    public static String createTable(String tableName) {
+    public static String createTable(String tableName, String compName, String prodName) {
     
         String result="Invalid Operation";
         JSONObject js = new JSONObject();
         try {
         js.put("createNewTable", "YES");
-        js.put("dbName", "ONTV");
+        js.put("dbName", tableName);
         js.put("createFirstRow", "NO");
-        js.put("company", "Onida");
-        js.put("product", "Television");
+        js.put("company", compName);
+        js.put("product", prodName);
         js.put("createNewThings", "NO");
         js.put("numOfDevices", 2);
         //js.put("", "");

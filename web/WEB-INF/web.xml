@@ -13,6 +13,10 @@
         <servlet-name>createNewDataHelperServlet</servlet-name>
         <servlet-class>org.onida.audio.createNewDataHelperServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetDataServlet</servlet-name>
+        <servlet-class>org.onida.audio.GetDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mobCodeServlet</servlet-name>
         <url-pattern>/mobCodeServlet</url-pattern>
@@ -24,6 +28,10 @@
     <servlet-mapping>
         <servlet-name>createNewDataHelperServlet</servlet-name>
         <url-pattern>/createNewDataHelperServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDataServlet</servlet-name>
+        <url-pattern>/GetDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
