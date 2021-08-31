@@ -73,8 +73,8 @@
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="company_name"> 
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Company Code(2 Characters)</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="company_code"> 
+                    <label for="exampleInputEmail1" class="form-label">Company Code</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="company_code" style="text-transform:lowercase" maxlength="2" > 
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Representative</label>
@@ -101,10 +101,10 @@
                 </div>                    
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_name"> 
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_name" style="text-transform:lowercase" maxlength="2"> 
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Product Code(2 Characters)</label>
+                    <label for="exampleInputEmail1" class="form-label">Product Code(2 Characters Upper Case)</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_code"> 
                 </div>
                 <div class="mb-3">

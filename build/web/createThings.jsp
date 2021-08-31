@@ -4,10 +4,11 @@
     Author     : suresh
 --%>
 
+<%@page import="org.onida.audio.ThingsDashBoard"%>
 <%@page import="org.onida.audio.createIotThings"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.onida.audio.DatabaseHelper"%>
-<%@ include file = "header.jsp" %>
+<%@ include file = "headerNoTimeOut.jsp" %>
 
 
 <%
@@ -141,26 +142,34 @@
                         }
                         stageInt ++;
                         stage = Integer.toString(stageInt);
+                        ThingsDashBoard tdb = new ThingsDashBoard();
+                        ThingsDashBoard.company = company;
+                        ThingsDashBoard.product = product;
+                        ThingsDashBoard.model = model;
+                        String thingsName = db.getThingsCode(company, product, model);
+                        ThingsDashBoard.thingsName = thingsName;
+                        String thingsDbName = thingsName.substring(0,4).toLowerCase();
+                        ThingsDashBoard.thingsDbName = thingsDbName;
+                        ThingsDashBoard.arrDisplayThings.clear();
+
                         %>
-                        <form action="createThings.jsp" method="POST">
-                            <input type="text" name="numThing" />
+                        <form action="thingsDashBoard.jsp" method="POST">
+                        <!-- <form action="createThings.jsp" method="POST"> -->
+                            <!-- <input type="text" name="numThing" /> -->
                             <input type="hidden" name="textInput" value="<%= stage %>" />
                             <input type="hidden" name="comp" value="<%= company %>" />
                             <input type="hidden" name="prod" value="<%= product %>" />
                             <input type="hidden" name="modl" value="<%= model %>" />
+                            <input type="hidden" name="databaseName" value="<%= thingsDbName %>" />
+                            <input type="hidden" name="mode" value="START" />
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>    
-                        <%
-                        
-
-
-
-
+                <%  
                     } else {
                         String thingStr = db.getThingsCode(company, product, model);
                         String dbName = thingStr.substring(0,4);
                         int num = Integer.parseInt(numThing);
-                        createIotThings.createThings(dbName, company, product, thingStr, num);
+                        //createIotThings.createThings(dbName, company, product, thingStr, num);
                         out.println("DB = "+dbName+"<br>Company = "+company+"<br>Product = "+product+"<br>ThingCode = "+ thingStr + "<br>Number = "+ num);
                     }
                 }
@@ -169,7 +178,7 @@
         </div>                
 </main>
             
-                                <%       
+<%       
     }
 %>
     

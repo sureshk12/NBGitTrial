@@ -15,8 +15,8 @@ import org.json.JSONObject;
 public class CreateDbTable {
     
     public static String createTable(String tableName, String compName, String prodName) {
-    
-        String result="Invalid Operation";
+        
+        String result ="Error";
         JSONObject js = new JSONObject();
         try {
         js.put("createNewTable", "YES");
@@ -29,6 +29,7 @@ public class CreateDbTable {
         //js.put("", "");
         } catch (JSONException e) {
             e.toString();
+            return "ERROR Json";
         }
         try {
             Service srTable = new Service();
@@ -44,7 +45,7 @@ public class CreateDbTable {
         try {
             Thread.sleep(15000);
             Service srFirstLine = new Service();
-            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");    
+            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");
             js.put("createNewTable", "NO");
             js.put("createFirstRow", "YES");
             Service.setJsonInputString(js.toString());
@@ -55,5 +56,38 @@ public class CreateDbTable {
             return "Error Could not create the First line";
         }
         return "OK";
-    }    
+    }
+
+    public static String thingsUpdate(String serial, String activation, String aws, String mobile) {
+        String returnVal = "ERROR";
+        JSONObject js = new JSONObject();
+        try {
+            js.put("createNewTable", "NO");
+            js.put("dbName", (ThingsDashBoard.thingsDbName).toUpperCase());
+            js.put("createFirstRow", "NO");
+            js.put("company", ThingsDashBoard.company);
+            js.put("product", ThingsDashBoard.product);
+            js.put("createNewThings", "YES");
+            js.put("numOfDevices", "1");
+            js.put("serial", serial);
+            js.put("activation", activation);
+            js.put("aws", aws);
+            js.put("mobile", mobile);
+        //js.put("", "");
+        } catch (JSONException e) {
+            e.toString();
+            return "ERROR Json";
+        }
+        try {
+            Service srFirstLine = new Service();
+            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");
+            Service.setJsonInputString(js.toString());
+            returnVal = Service.getOnidaIotDataString();
+            System.out.print(returnVal + "<br>");
+        } catch (RuntimeException  e) {
+            e.toString();
+            return "ERROR Could not create Thing";
+        }
+        return returnVal;
+    }
 }

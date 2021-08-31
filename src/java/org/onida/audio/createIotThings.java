@@ -36,7 +36,7 @@ public class createIotThings {
         }
         try {
             //Service srTable = new Service();
-            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");                        
+            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable"); 
             Service.setJsonInputString(js.toString());
             //Service.setApiKey("0ePtduBoz33Nw8Qq2iYRM8TAOS3n27xy3Gf9YdGt");                        
             result = Service.getOnidaIotDataString();

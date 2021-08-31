@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/createThings.jsp</file>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/createNewData.jsp</file>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/Testing/newCreateThings.jsp</file>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/JavaScript/newCreateThings.js</file>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/index.jsp</file>
-            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/src/java/org/onida/audio/GetDataServlet.java</file>
+            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/src/java/org/onida/audio/Thing.java</file>
+            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/web/thingsDashBoard_20210828.jsp</file>
+            <file>file:/D:/Ashank/LocalLaptop/OnidaAuDataV0L/src/java/org/onida/audio/newThingSevlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseHelper {
     Connection conn = null;
@@ -95,17 +97,20 @@ public class DatabaseHelper {
         //Get comp_code
         ResultSet resultset;
         try {
-            resultset = stmt.executeQuery("select * from company WHERE comp_name='"+compStr+"'");
-            while(resultset.next()) {
-                thingCode += resultset.getString("comp_code");
-            }
-            resultset = stmt.executeQuery("select * from product WHERE prod_name='"+prodStr+"'");
-            while(resultset.next()) {
-                thingCode += resultset.getString("prod_code");
-            }
-            resultset = stmt.executeQuery("select * from model WHERE model_name='"+modelStr+"' AND model_comp_name='"+compStr+"' AND model_prod_name='"+prodStr+"'");
-            while(resultset.next()) {
-                thingCode += resultset.getString("model_uniqueid");
+//            resultset = stmt.executeQuery("select * from company WHERE comp_name='"+compStr+"'");
+//            while(resultset.next()) {
+//                thingCode += resultset.getString("comp_code");
+//            }
+//            resultset = stmt.executeQuery("select * from product WHERE prod_name='"+prodStr+"'");
+//            while(resultset.next()) {
+//                thingCode += resultset.getString("prod_code");
+//            }
+            thingCode = getDatabaseName(compStr, prodStr);
+            if(!thingCode.equals("ERROR")) {
+                resultset = stmt.executeQuery("select * from model WHERE model_name='"+modelStr+"' AND model_comp_name='"+compStr+"' AND model_prod_name='"+prodStr+"'");
+                while(resultset.next()) {
+                    thingCode += resultset.getString("model_uniqueid");
+                }
             }
             stmt.close();
             conn.close();
@@ -193,26 +198,18 @@ public class DatabaseHelper {
                         //Form the Database name
                         String companyCode;
                         String productCode;
-                        String dynamoDbName;
-                        resultset = stmt.executeQuery("SELECT * FROM company WHERE comp_name='"+ compName+"'");
-                        if(resultset.next()) {
-                            companyCode = resultset.getString("comp_code");
-                            resultset = stmt.executeQuery("SELECT * FROM product WHERE prod_name='"+ prodName+"'");
-                            if(resultset.next()) {
-                                productCode = resultset.getString("prod_code");
-                                dynamoDbName = companyCode + productCode;
-                                String retValue = CreateDbTable.createTable(dynamoDbName, compName, prodName);
-                                if(retValue.equals("OK")) {
-                                    retMsg = "Created <b>" + modelName + " Model with Database name " +dynamoDbName + "</b> Sucessfully";
-                                } else {
-                                    retMsg = "Error Could not create table";
-                                }
+                        String dynamoDbName = getDatabaseName(compName, prodName);
+                        if(!dynamoDbName.equals("ERROR")) {
+                            String retValue = CreateDbTable.createTable(dynamoDbName, compName, prodName);
+                            if(retValue.equals("OK")) {
+                                retValue = createLocalDatabase(dynamoDbName, compName, prodName);
+                            }                            
+                            if(retValue.equals("OK")) {
+                                retMsg = "Created <b>" + modelName + " Model with Database name " +dynamoDbName + "</b> Sucessfully";
                             } else {
-                                retMsg = "ERROR IN CREATION OF <b>" + modelName + "<b> product code";
+                                retMsg = "Error Could not create table";
                             }
-                        } else {
-                            retMsg = "ERROR IN CREATION OF <b>" + modelName + "<b> Company code";
-                        }                                          
+                        }                                         
                     }
                     break;
             }           
@@ -222,5 +219,68 @@ public class DatabaseHelper {
            System.out.println("SQL Error"); 
         }        
         return retMsg;
-    }   
+    }
+    
+    public String createLocalDatabase(String tName, String compName, String prodName) {
+        String retMsg = "Error";
+        String tNameLower = tName.toLowerCase();// For Local Database the table should be Lower case only
+        try {
+            stmt.executeUpdate("CREATE TABLE `"+ tNameLower + "` (" +
+                    "`id` INT NOT NULL AUTO_INCREMENT," +
+                    "`SerialNum` VARCHAR(18) NOT NULL," +
+                            "`Activation` VARCHAR(10) NOT NULL," +
+                                    "`Aws` VARCHAR(32) NOT NULL," +
+                                            "`Mobile` VARCHAR(32) NOT NULL," +
+                                                    "`Mac` VARCHAR(16) NOT NULL," +
+                                                        "`Dynamo` INT NOT NULL," +
+                                                            "PRIMARY KEY (`id`)," +
+                                                            "UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)");
+            
+            PreparedStatement st;
+            st = conn.prepareStatement("INSERT into "+tNameLower+" (SerialNum,Activation,Aws,Mobile,Mac,Dynamo) VALUES (?,?,?,?,?,?)");
+            st.setString(1, "0000");//Serial
+            st.setString(2, "0");//Activation
+            st.setString(3, compName);//Aws
+            st.setString(4, prodName);//Mobile
+            st.setString(5, "NA");//Mac
+            st.setInt(6, 1);//Dynamo 1 = No need Dynamo
+            retMsg = "OK"; 
+            st.executeUpdate();
+            st.close();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retMsg;
+    }
+    
+    public String getDatabaseName(String compName, String prodName) {
+        String returnVal = "ERROR";       
+        ResultSet resultset;
+        try {
+            resultset = stmt.executeQuery("SELECT * FROM company WHERE comp_name='"+ compName+"'");
+            if(resultset.next()) {
+                String companyCode = resultset.getString("comp_code");
+                resultset = stmt.executeQuery("SELECT * FROM product WHERE prod_name='"+ prodName+"'");
+                if(resultset.next()) {
+                    returnVal = companyCode + resultset.getString("prod_code");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return returnVal;
+    }
+    
+    public String updatedynamoLocal(String dbName, String serial) {
+        String returnVal = "ERROR";
+        try {
+            stmt.executeUpdate("UPDATE `"+ dbName + "` SET `Dynamo` = '1' WHERE SerialNum='"+ serial +"'");
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("SQL Error");
+        }
+        return returnVal;
+    }
 }
