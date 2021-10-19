@@ -41,7 +41,7 @@ public class DatabaseHelper {
     }    
     
     public ArrayList<String> getCompany() {
-        var retData = new ArrayList<String>();       
+        ArrayList<String> retData = new ArrayList<String>();       
         try {
             ResultSet resultset = stmt.executeQuery("select * from company");
    

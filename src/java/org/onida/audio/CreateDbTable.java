@@ -63,7 +63,7 @@ public class CreateDbTable {
         JSONObject js = new JSONObject();
         try {
             js.put("createNewTable", "NO");
-            js.put("dbName", (ThingsDashBoard.thingsDbName).toUpperCase());
+            js.put("dbName", (ThingsDashBoard.thingsDbName));
             js.put("createFirstRow", "NO");
             js.put("company", ThingsDashBoard.company);
             js.put("product", ThingsDashBoard.product);

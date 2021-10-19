@@ -153,7 +153,7 @@
                         ThingsDashBoard.arrDisplayThings.clear();
 
                         %>
-                        <form action="thingsDashBoard.jsp" method="POST">
+                        <form action="thingsDashBoard_20210828.jsp" method="POST">
                         <!-- <form action="createThings.jsp" method="POST"> -->
                             <!-- <input type="text" name="numThing" /> -->
                             <input type="hidden" name="textInput" value="<%= stage %>" />
