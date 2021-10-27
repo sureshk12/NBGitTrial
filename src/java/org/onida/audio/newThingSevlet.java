@@ -1,7 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This Sevlet is called from new Thing which needs to register to get
+ * Serial number, 
+ * Activation
+ * AWs
+ * Mobile
+ * Input: MACID
  */
 package org.onida.audio;
 
@@ -29,6 +32,8 @@ public class newThingSevlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * "http://192.168.2.3:8080/OnidaAuDataV0L/newThingSevlet?mac=B4:E6:2D:8D:73:C1"
+     * "http://192.168.2.3:8080/OnidaAuDataV0L/newThingSevlet?mac=3C:71:BF:9D:9B:EC"
      */
     
     //Example Mac = 30:AE:A4:07:0D:64

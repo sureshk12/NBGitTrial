@@ -12,19 +12,14 @@
 
 
 <%
-    if(logStatus.equals("Suresh")) {
-        %>
-
-<% 
-    int stageInt=0;
-    
+if(logStatus.equals("Suresh")) {
+    int stageInt=0;    
     //Get Company data
     DatabaseHelper db = new DatabaseHelper();    
     ArrayList<String> arr = new ArrayList<>();
-
     String []msg = {"Company","Product","Model"};
 
-    String recdMsg = (String)request.getAttribute("createMsg");
+    String recdMsg = (String)request.getAttribute("createMsg");//Message
     String company = request.getParameter("comp");
     String product = request.getParameter("prod");
     String model = request.getParameter("modl");    
@@ -45,21 +40,21 @@
     stage = Integer.toString(stageInt);
     switch(stageInt){
         case 0:
-            arr = db.getCompany();
+            arr = db.getCompanyNames();
             if(arr.isEmpty()) {
                 err = "No Company resgistered, pls register Company, Product & Model";                
             }
             break;
         case 1:
             company = selection;
-            arr = db.getProduct(company);
+            arr = db.getProductNames();
             if(arr.isEmpty()) {
                 err = "No Product resgistered, pls register Product & Model";                
             }
             break;
         case 2: 
             product = selection;
-            arr = db.getModel(company,product);
+            arr = db.getModelNames(company,product);
             if(arr.isEmpty()) {
                 err = "No Model resgistered, pls register Model";                
             }
@@ -179,7 +174,7 @@
 </main>
             
 <%       
-    }
+}
 %>
     
 <%@ include file = "footer.jsp" %>

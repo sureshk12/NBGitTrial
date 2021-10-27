@@ -7,7 +7,7 @@ package org.onida.audio;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Suresh
  */
-public class GetDataServlet extends HttpServlet {
+public class CreateProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,31 +31,46 @@ public class GetDataServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String retValue = "";
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DatabaseHelper db = new DatabaseHelper();
-            ArrayList<String> arr = new ArrayList<>();
-            String file = request.getParameter("name");
-            String comp = request.getParameter("comp");
-            String prod = request.getParameter("prod");
-            String model = request.getParameter("model");
-            if(file.equals("comp")) {
-                arr = db.getCompany();
-            } else if(file.equals("prod")) {
-                arr = db.getProduct(comp);
-            } else if(file.equals("model")) {
-                arr = db.getModel(comp, prod);
+            String name = request.getParameter("name");
+            String code = request.getParameter("code");
+            String description = request.getParameter("description");
+            
+            if((!retValue.equals("")) ||(name == null) || (name.equals("")) || (name.length() > 30) || (name.length() < 3)) {
+                retValue = "Error in Name";
+            } else if((!retValue.equals("")) ||(code == null) || (code.equals("")) || (code.length() > 2) || (name.length() < 2)) {
+                retValue = "Error in Code";
+            } else if((!retValue.equals("")) ||(description == null) || (description.equals("")) || (description.length() > 45) || (description.length() < 3)) {
+                retValue = "Error in Description";
+            } 
+            
+            if(!retValue.equals("")) {
+                RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/createProduct.jsp");
+                request.setAttribute("msg", retValue);
+                RequetsDispatcherObj.forward(request, response);
+            } else {
+                Product x = new Product();
+                x.setProduct(name, code, description);
+                String msg = x.createNewProduct(x);
+                RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/create.jsp");
+                request.setAttribute("msg", msg);
+                RequetsDispatcherObj.forward(request, response);
             }
             
-            String msg="";
-            for(int x = 0; x < arr.size(); x++){
-                if (msg.equals("")) {
-                    msg += arr.get(x) ;
-                } else {
-                    msg += "," + arr.get(x) ;
-                }        
-            }
-            out.println(msg);
+            
+            
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet CreateProductServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet CreateProductServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
         }
     }
 

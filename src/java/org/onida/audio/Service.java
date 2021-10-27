@@ -39,12 +39,12 @@ public class Service {
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("x-api-key", apiKey);
             
-//            conn.setRequestProperty("aws_access_key_id","AKIATVYOXXILILYBEV44");
-//            conn.setRequestProperty("aws_secret_access_key","OX5nZXsygKXmXBIUZrRCVl7LNcG5TWI9QuZbeaSeapikey");
+            //conn.setRequestProperty("aws_access_key_id","AKIATVYOXXILILYBEV44");
+            //conn.setRequestProperty("aws_secret_access_key","OX5nZXsygKXmXBIUZrRCVl7LNcG5TWI9QuZbeaSeapikey");
 
             //Send Data
             conn.setDoOutput(true);
-//            String jsonInputString = "{'name': 'Suresh', 'job': 'Programmer'}";
+            //String jsonInputString = "{'name': 'Suresh', 'job': 'Programmer'}";
             try(OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
                 os.write(input, 0, input.length);			

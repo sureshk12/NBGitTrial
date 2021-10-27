@@ -14,7 +14,7 @@
     </head>
     <body>
         <% 
-            String dataIn = request.getParameter("comp");
+            //String dataIn = request.getParameter("comp");
             String usrEmail = request.getParameter("userEmail");
             String usrPwd = request.getParameter("userPassword");
             int err = 0;

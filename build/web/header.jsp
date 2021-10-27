@@ -64,10 +64,12 @@
                         <image src="static/image/onida_transparent_big.png" ></image>
                     </div>                    
                     <a class="navbar-brand mr-4" href="index.jsp">Onida IOT</a>
+                    <!--
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                         aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    -->
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <%
                             if(logStatus.equals("Suresh")) {
@@ -96,9 +98,15 @@
         <%
             if(!logStatus.equals("Suresh")) {
                 %>
-                <div class="alert alert-danger" role=alert">
-                    <h5>You have not Logged in, Please log in to use the System</h5>
-                </div>
+                <main role="main" class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="alert alert-danger" role=alert">
+                                <h5>You have not Logged in, Please log in to use the System</h5>
+                            </div>
+                        </div>
+                    </div>
+                </main>
                 <% 
                 }
         %>

@@ -10,16 +10,20 @@
         <servlet-class>org.onida.audio.validateLogin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>createNewDataHelperServlet</servlet-name>
-        <servlet-class>org.onida.audio.createNewDataHelperServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetDataServlet</servlet-name>
-        <servlet-class>org.onida.audio.GetDataServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>newThingSevlet</servlet-name>
         <servlet-class>org.onida.audio.newThingSevlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateCompanyServlet</servlet-name>
+        <servlet-class>org.onida.audio.CreateCompanySevlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>org.onida.audio.CreateProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateModelServlet</servlet-name>
+        <servlet-class>org.onida.audio.CreateModelServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>mobCodeServlet</servlet-name>
@@ -30,16 +34,20 @@
         <url-pattern>/validateLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>createNewDataHelperServlet</servlet-name>
-        <url-pattern>/createNewDataHelperServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetDataServlet</servlet-name>
-        <url-pattern>/GetDataServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>newThingSevlet</servlet-name>
         <url-pattern>/newThingSevlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCompanyServlet</servlet-name>
+        <url-pattern>/CreateCompanyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/CreateProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateModelServlet</servlet-name>
+        <url-pattern>/CreateModelServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

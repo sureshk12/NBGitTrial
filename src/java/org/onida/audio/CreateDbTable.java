@@ -16,7 +16,7 @@ public class CreateDbTable {
     
     public static String createTable(String tableName, String compName, String prodName) {
         
-        String result ="Error";
+        String retValue ="";
         JSONObject js = new JSONObject();
         try {
         js.put("createNewTable", "YES");
@@ -36,27 +36,33 @@ public class CreateDbTable {
             Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");                        
             Service.setJsonInputString(js.toString());
             //Service.setApiKey("0ePtduBoz33Nw8Qq2iYRM8TAOS3n27xy3Gf9YdGt");                        
-            result = Service.getOnidaIotDataString();
+            String retValueStr = Service.getOnidaIotDataString();
+            System.out.print(retValueStr + "<br>");
         }catch(RuntimeException e) {
             e.toString();
-            return "ERROR could not create Table";
+            retValue =  "ERROR could not create Dynamo Table(s)";
         }
-        System.out.print(result + "<br><br><br>");        
-        try {
-            Thread.sleep(15000);
-            Service srFirstLine = new Service();
-            Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");
-            js.put("createNewTable", "NO");
-            js.put("createFirstRow", "YES");
-            Service.setJsonInputString(js.toString());
-            result = Service.getOnidaIotDataString();
-            System.out.print(result + "<br>");
-        } catch (InterruptedException | RuntimeException | JSONException e) {
-            e.toString();
-            return "Error Could not create the First line";
+        
+        if(retValue.equals("")) {
+            System.out.print(retValue + "<br><br><br>");        
+            try {
+                Thread.sleep(15000);
+                Service srFirstLine = new Service();
+                Service.setBaseUrl("https://e5ggs311eb.execute-api.us-east-1.amazonaws.com/live/createtable");
+                js.put("createNewTable", "NO");
+                js.put("createFirstRow", "YES");
+                Service.setJsonInputString(js.toString());
+                String retValueStr = Service.getOnidaIotDataString();
+                System.out.print(retValueStr + "<br>");
+            } catch (InterruptedException | RuntimeException | JSONException e) {
+                e.toString();
+                retValue =  "Error Could not create the First line";
+            }
         }
-        return "OK";
+        return retValue;
     }
+    
+
 
     public static String thingsUpdate(String serial, String activation, String aws, String mobile) {
         String returnVal = "ERROR";
@@ -90,4 +96,5 @@ public class CreateDbTable {
         }
         return returnVal;
     }
+
 }

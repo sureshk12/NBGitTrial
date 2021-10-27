@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sures
  */
-public class createNewDataHelperServlet extends HttpServlet {
+public class createNewDataHelperServletTOBEDELETED extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,26 +29,27 @@ public class createNewDataHelperServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String companyStr = request.getParameter("company_name");
-        String companyCodeStr = request.getParameter("company_code");
-        String personStr = request.getParameter("company_person");
-        String emailStr = request.getParameter("company_email");
-        String phoneStr = request.getParameter("company_phone");
-        String addrStr = request.getParameter("company_address");
-        String productStr = request.getParameter("product_name");
-        String productCodeStr = request.getParameter("product_code");
-        String descriptionStr = request.getParameter("product_description");
-        String modelStr = request.getParameter("model_number");
-        String stage = request.getParameter("stage");
-        String compStr = request.getParameter("compStr");
-        String prodStr = request.getParameter("prodStr");
-        String compStrDrop = request.getParameter("dropDown1");
-        String prodStrDrop = request.getParameter("dropDown2");
-        
+//        String companyStr = request.getParameter("company_name");
+//        String companyCodeStr = request.getParameter("company_code");
+//        String personStr = request.getParameter("company_person");
+//        String emailStr = request.getParameter("company_email");
+//        String phoneStr = request.getParameter("company_phone");
+//        String addrStr = request.getParameter("company_address");
+//        String productStr = request.getParameter("product_name");
+//        String productCodeStr = request.getParameter("product_code");
+//        String descriptionStr = request.getParameter("product_description");
+//        String modelStr = request.getParameter("model_number");
+//        String stage = request.getParameter("stage");
+//        String compStr = request.getParameter("compStr");
+//        String prodStr = request.getParameter("prodStr");
+//        String compStrDrop = request.getParameter("dropDown1");
+//        String prodStrDrop = request.getParameter("dropDown2");
+/*        
         ArrayList<String> sqlData = new ArrayList<String>();
         sqlData.add(request.getParameter("company_name"));//0
         sqlData.add(request.getParameter("company_code"));//1
@@ -71,7 +72,7 @@ public class createNewDataHelperServlet extends HttpServlet {
         RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/create.jsp");
         request.setAttribute("createMsg", retMsg);
         RequetsDispatcherObj.forward(request, response);
-
+*/
             
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
@@ -97,8 +98,7 @@ public class createNewDataHelperServlet extends HttpServlet {
 //            out.println("</html>");
 //        } 
 //        
-        
-        
+               
 
     }
 

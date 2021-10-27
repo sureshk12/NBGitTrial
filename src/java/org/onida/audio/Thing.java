@@ -43,6 +43,10 @@ public class Thing {
         this.dynamo = dynamoStatus;
     }
     
+    /*
+        This function 
+    
+    */
     public static String storeThing(String mac) {
         ArrayList arrList = ThingsDashBoard.getNonRegThings(ThingsDashBoard.thingsDbName, true);
         String activation = getRandNum(5);
@@ -67,7 +71,7 @@ public class Thing {
 
         String serial = ThingsDashBoard.thingsName.toUpperCase() + yStr + mStr + dStr + sNum.substring(1,6);
         
-        String retMsg = "ERROR";
+        String retMsg = "";
         Connection conn;
         Statement stmt;
         try {
