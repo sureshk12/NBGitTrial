@@ -38,6 +38,7 @@ public class CreateProductServlet extends HttpServlet {
             String name = request.getParameter("name");
             String code = request.getParameter("code");
             String description = request.getParameter("description");
+            code = code.toLowerCase();
             
             if((!retValue.equals("")) ||(name == null) || (name.equals("")) || (name.length() > 30) || (name.length() < 3)) {
                 retValue = "Error in Name";

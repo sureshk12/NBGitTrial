@@ -41,6 +41,7 @@ public class CreateCompanySevlet extends HttpServlet {
             String repEmail = request.getParameter("rep_email");
             String repPhone = request.getParameter("rep_phone");
             String address = request.getParameter("address");
+            code = code.toLowerCase();
             
             if((!retValue.equals("")) ||(name == null) || (name.equals("")) || (name.length() > 30) || (name.length() < 3)) {
                 retValue = "Error in Name";
