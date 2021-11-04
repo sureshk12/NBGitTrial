@@ -36,12 +36,22 @@ public class newThingSevlet extends HttpServlet {
      * "http://192.168.2.3:8080/OnidaAuDataV0L/newThingSevlet?mac=3C:71:BF:9D:9B:EC"
      */
     
+    
     //Example Mac = 30:AE:A4:07:0D:64
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /*
+            TESTING ONLY
+            
+            String security = getSecurityCode("ONTV121AU00010", "3f569a7f95", "ace5e5f454cfb87b496d07846a82cf0d", "af947a41a6c7d5e5cf23d8df5e25d0ea", "3C:71:BF:9D:9B:EC");
+            out.print(security);//testing
+            */
+            
+            
             /* TODO output your page here. You may use following sample code. */
+            
             String mac = request.getParameter("mac");
             if (mac != null) {
                 if(!mac.equals("") || !mac.equals("nomacid")) {
@@ -59,7 +69,8 @@ public class newThingSevlet extends HttpServlet {
                         }
                     }
                 }
-            } 
+            }
+            
         }
     }
   
@@ -111,6 +122,11 @@ public class newThingSevlet extends HttpServlet {
         randStrSecCode = randStrSecCode.substring((randStrSecCode.length() - 8),randStrSecCode.length());
         System.out.println(randStrSecCode);
         
+        /*
+        ONLY FOR TESTING        
+        randStrSecCode = "12345678";//testing
+        */
+        
         String shaMacRanCode = getShaCode(serSecCode, actSecCode, macIdSecCode, randStrSecCode, "34");
         String shaAwsRanCode = getShaCode(serSecCode, actSecCode, awsSecCode, randStrSecCode, "34");
         String shaMobRanCode = getShaCode(serSecCode, actSecCode, mobSecCode, randStrSecCode, "34");
@@ -118,10 +134,16 @@ public class newThingSevlet extends HttpServlet {
         String shaMobMacCode = getShaCode(serSecCode, actSecCode, mobSecCode, macIdSecCode, "34");
         String shaDigest = shaMacRanCode + shaAwsRanCode + shaMobRanCode + shaAwsMacCode + shaMobMacCode;
         System.out.println("shaDigest before                 = " + shaDigest);
-          //Get random step
-        int step = random.nextInt(4);
+        //Generate random step
+        int step = random.nextInt(4);        
+        
+        /*
+        ONLY FOR TESTING         
+        step = 4;//TESTING
+        */
+        
         step = step + 3;
-        String stepStr = Integer.toString(step);
+        String stepStr = Integer.toString(step);        
         char[] stepChar = stepStr.toCharArray();
         System.out.println("Step = " + stepStr);
         //convert to Chararray
@@ -129,22 +151,33 @@ public class newThingSevlet extends HttpServlet {
         //Encode Step @ position 3
         shaDigestChar[3] = stepChar[0];
 //        System.out.println("shaDigestChar after step @ pos 3 = " + String.valueOf(shaDigestChar));
-        //Encode RandomCode
+        //Encode RandomCode starting position 3 in steps of step
         char[] randCharSecCode = randStrSecCode.toCharArray();
         int insertPos = 3;
         for(int x = 0; x < 8; x++) {
             insertPos = insertPos + step;
             shaDigestChar[insertPos] = randCharSecCode[x];
         }
-//        System.out.println("shaDigestChar after Random code  = " + String.valueOf(shaDigestChar));
+        //System.out.println("shaDigestChar after Random code  = " + String.valueOf(shaDigestChar));
         //Encode AwsCode, MobCode
+        //Generate random step
+        int stepAwsMod = random.nextInt(7);
+          
+        /*
+        ONLY FOR TESTING        
+        stepAwsMod = 7;//TESTING
+        */
+        
+        stepAwsMod = stepAwsMod + 1;
+        //Store step in location [2] in shaDigestchar
+        shaDigestChar[2] = Integer.toString(stepAwsMod).toCharArray()[0];        
         char[] awsCharSecCode = awsSecCode.toCharArray();
         char[] mobCharSecCode = mobSecCode.toCharArray(); 
-        for(int x = 0; x < 12; x++) {
+        for(int x = 0; x < 32; x++) {
             insertPos = insertPos + step;
             shaDigestChar[insertPos] =  awsCharSecCode[x];
-            insertPos = insertPos + step;
-            shaDigestChar[insertPos] =  mobCharSecCode[x];
+            //insertPos = insertPos + stepAwsMod;
+            shaDigestChar[insertPos + stepAwsMod] =  mobCharSecCode[x];
         }
         System.out.println("shaDigest after AWS amd Mob      = " + String.valueOf(shaDigestChar));        
         return String.valueOf(shaDigestChar);
@@ -162,7 +195,7 @@ public class newThingSevlet extends HttpServlet {
         {
             shaPayLoad = shaPayLoad + specialStr.substring(x, x + 1) + actCode.substring(x, x + 1) + randCode.substring(x, x + 1) + serCode.substring(x, x + 1) + secCode.substring(x, x + 1);
         }
-        shaPayLoad = shaPayLoad + splCode;
+        shaPayLoad = shaPayLoad + secCode + splCode;
 //        System.out.println(shaPayLoad);
         try {
             MessageDigest mdAlgorithm = MessageDigest.getInstance("SHA-256");

@@ -47,6 +47,10 @@
             </form>
             <%
             String mode = request.getParameter("mode");
+            if (mode == null) {
+                mode = "";
+            }
+            response.setIntHeader("Refresh", 5);//refresh the page every 5 seconds
             if(mode.equals("START")) {
                 %>
                 <div class="row">

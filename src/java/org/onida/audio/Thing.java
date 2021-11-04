@@ -54,7 +54,7 @@ public class Thing {
         String mobile = getRandNum(16);
         //Generate Serial number
         Thing thg = (Thing)arrList.get(0);
-        int serNum = Integer.parseInt(thg.getActivationCode())+1;
+        int serNum = Integer.parseInt(thg.getActivationCode())+1;//actually activation code in first row has no of devices
         String sNum = Integer.toString(serNum + 100000);
         //Generate data String
 //        Date today = new Date();
