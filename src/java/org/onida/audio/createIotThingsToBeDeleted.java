@@ -12,7 +12,7 @@ import org.json.JSONObject;
  *
  * @author Suresh
  */
-public class createIotThings {
+public class createIotThingsToBeDeleted {
     
     public void createIotThings() {
         

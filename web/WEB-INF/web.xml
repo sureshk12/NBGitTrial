@@ -25,6 +25,10 @@
         <servlet-name>CreateModelServlet</servlet-name>
         <servlet-class>org.onida.audio.CreateModelServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewTesting</servlet-name>
+        <servlet-class>org.onida.audio.NewTesting</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mobCodeServlet</servlet-name>
         <url-pattern>/mobCodeServlet</url-pattern>
@@ -48,6 +52,10 @@
     <servlet-mapping>
         <servlet-name>CreateModelServlet</servlet-name>
         <url-pattern>/CreateModelServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewTesting</servlet-name>
+        <url-pattern>/NewTesting</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
